@@ -2,12 +2,18 @@
 {
     public class Appointment
     {
-        public int AppoID { get; set; }
-
-        public DateTime AppoTime { get; set; }
-
-        Doctor DoctorID { get; set; }
-
-        Patient PatientID { get; set; }
+        [Key]
+        public int AppointmentID { get; set; }
+        
+        
+        public DateTime AppointmentTime { get; set; }
+        
+        Doctor Doctor { get; set; }
+        public int DoctorID { get; set; }
+        
+        
+        Patient Patient { get; set; }
+        
+        public int PatientID { get; set;}
     }
 }
