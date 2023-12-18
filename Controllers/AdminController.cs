@@ -1,14 +1,14 @@
-﻿using Has.Models;
+﻿using Hastane.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 
-namespace Has.Controllers
+namespace Hastane.Controllers
 {
     public class AdminController : Controller
     {
         
-        private readonly HasDataContext? _context;
-        public AdminController(HasDataContext context)
+        private readonly HastaneDataContext? _context;
+        public AdminController(HastaneDataContext context)
         {
             _context = context;
         }
@@ -24,7 +24,7 @@ namespace Has.Controllers
         public IActionResult Login(Admin _admin)
         {
             
-            HasDataContext context = new HasDataContext();
+            HastaneDataContext context = new HastaneDataContext();
             var status = context.Admins.Where(x=>x.AdminName== _admin.AdminName&& x.AdminPassword== _admin.AdminPassword).FirstOrDefault();
             if (status == null)
             {
