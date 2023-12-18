@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Has.Models;
+using Hastane.Models;
 
-namespace Has.Controllers
+namespace Hastane.Controllers
 {
     public class DoctorController : Controller
     {
-        private readonly HasDataContext _context;
+        private readonly HastaneDataContext _context;
 
-        public DoctorController(HasDataContext context)
+        public DoctorController(HastaneDataContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace Has.Controllers
         {
               return _context.Doctors != null ? 
                           View(await _context.Doctors.ToListAsync()) :
-                          Problem("Entity set 'HasDataContext.Doctors'  is null.");
+                          Problem("Entity set 'HastaneDataContext.Doctors'  is null.");
         }
 
         // GET: Doctor/Details/5
