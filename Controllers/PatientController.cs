@@ -1,8 +1,8 @@
-﻿using Has.Migrations;
-using Has.Models;
+﻿using Hastane.Migrations;
+using Hastane.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Has.Controllers
+namespace Hastane.Controllers
 {
     public class PatientController : Controller
     {
@@ -15,7 +15,7 @@ namespace Has.Controllers
         [HttpPost]
         public IActionResult Login(List<Patient> patients)
         {
-            HasDataContext _context = new HasDataContext();
+            HastaneDataContext _context = new HastaneDataContext();
             foreach (Patient patient in patients)
             {
                 var status = _context.Patients.Where(x => x.PatientTC == patient.PatientTC && x.PatientPassword == patient.PatientPassword);
