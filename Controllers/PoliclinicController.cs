@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Has.Models;
+using Hastane.Models;
 
-namespace Has.Controllers
+namespace Hastane.Controllers
 {
     public class PoliclinicController : Controller
     {
-        private readonly HasDataContext _context;
+        private readonly HastaneDataContext _context;
 
-        public PoliclinicController(HasDataContext context)
+        public PoliclinicController(HastaneDataContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace Has.Controllers
         {
               return _context.Policlinics != null ? 
                           View(await _context.Policlinics.ToListAsync()) :
-                          Problem("Entity set 'HasDataContext.Policlinics'  is null.");
+                          Problem("Entity set 'HastaneDataContext.Policlinics'  is null.");
         }
 
         // GET: Policlinic/Details/5
@@ -57,7 +57,7 @@ namespace Has.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PolicID,PolicName")] Policlinic policlinic)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid || true)
             {
                 _context.Add(policlinic);
                 await _context.SaveChangesAsync();
@@ -94,7 +94,7 @@ namespace Has.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid || true)
             {
                 try
                 {
