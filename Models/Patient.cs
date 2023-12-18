@@ -1,4 +1,5 @@
-﻿namespace Hastane.Models
+using System.ComponentModel.DataAnnotations;
+namespace Hastane.Models
 {
     public class Patient
     {
