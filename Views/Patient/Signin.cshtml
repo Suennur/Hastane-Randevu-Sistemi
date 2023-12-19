@@ -1,0 +1,37 @@
+﻿@model Patient
+
+@{
+    ViewBag.Title = "Kaydol";
+}
+
+<form asp-action="Signin" method="post">
+    <div>
+        <label class="form-control" asp-for="PatientTC"></label>
+        <input class="form-control" asp-for="PatientTC" />
+        <span asp-validation-for="PatientTC" class="text-danger"></span>
+    </div>
+    <div>
+        <label class="form-control" asp-for="PatientFName"></label>
+        <input class="form-control" asp-for="PatientFName" />
+        <span asp-validation-for="PatientFName" class="text-danger"></span>
+    </div>
+    <div>
+        <label class="form-control" asp-for="PatientLName"></label>
+        <input class="form-control" asp-for="PatientLName" />
+        <span asp-validation-for="PatientLName" class="text-danger"></span>
+    </div>
+    <div>
+        <label class="form-control" asp-for="PatientPassword"></label>
+        <input class="form-control" asp-for="PatientPassword" />
+        <span asp-validation-for="PatientPassword" class="text-danger"></span>
+    </div>
+    <br />
+    <div><label class="link-info"><a asp-controller="Patient" asp-action="Login">Zaten hesabın var mı? Giriş Yap.</a></label></div>
+    <input type="submit" class="btn btn-outline-success" value="Kaydol" />
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

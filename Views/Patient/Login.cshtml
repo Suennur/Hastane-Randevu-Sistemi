@@ -1,0 +1,41 @@
+﻿@model Patient
+
+@{
+    ViewBag.Title = "Kullanıcı Girişi";
+}
+
+
+@if (ViewBag.LoginStatus != null)
+{
+
+    if (ViewBag.LoginStatus == 0)
+    {
+        <div class="alert alert-danger">Hatalı kullanıcı adı veya parola</div>
+    }
+
+}
+@if (TempData["hata"] is not null)
+{
+    <div class="alert alert-danger">@TempData["hata"]</div>
+}
+<form asp-action="Login" method="post">
+    <div>
+        <label class="form-control" asp-for="PatientTC"></label>
+        <input class="form-control" asp-for="PatientTC" />
+        <span asp-validation-for="PatientTC" class="text-danger"></span>
+    </div>
+    <div>
+        <label class="form-control" asp-for="PatientPassword"></label>
+        <input class="form-control" asp-for="PatientPassword" />
+        <span asp-validation-for="PatientPassword" class="text-danger"></span>
+    </div>
+    <br />
+    <div><label class="link-info"><a asp-controller="Patient" asp-action="Signin">Hesap oluştur.</a></label></div>
+    <input type="submit" class="btn btn-outline-success" value="Giriş" />
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

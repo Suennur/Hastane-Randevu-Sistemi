@@ -1,0 +1,41 @@
+﻿@model Admin
+
+@{
+    ViewBag.Title = "Admin Girişi";
+}
+
+
+@if (ViewBag.Status != null)
+{
+
+    if (ViewBag.Status == 0)
+    {
+        <div class="alert alert-danger"> Hatalı kullanıcı adı veya parola</div>
+    }
+
+
+}
+@if (TempData["hata"] is not null)
+{
+    <div class="alert alert-danger">@TempData["hata"]</div>
+}
+<form asp-action="Login" method="post">
+    <div>
+        <label class="form-control" asp-for="AdminName"></label>
+        <input class="form-control" asp-for="AdminName" />
+        <span asp-validation-for="AdminName" class="text-danger"></span>
+    </div>
+    <div>
+        <label class="form-control" asp-for="AdminPassword"></label>
+        <input class="form-control" asp-for="AdminPassword" />
+        <span asp-validation-for="AdminPassword" class="text-danger"></span>
+    </div>
+    <br />
+    <input type="submit" class="btn btn-outline-success" value="Giriş" />
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
