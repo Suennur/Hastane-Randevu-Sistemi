@@ -8,4 +8,4 @@ namespace Hastane.Models
 
         public string PolicName { get; set; }
     }
-}
+} 
