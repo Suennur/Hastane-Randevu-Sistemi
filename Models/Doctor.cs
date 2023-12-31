@@ -25,7 +25,7 @@ namespace Hastane.Models
         [Display(Name = "ÇALIŞMA GÜNLERİ")]
         public DayOfWeek WorkDay { get; set;}
 
-        
+        [ForeignKey("PolicID")]
         Policlinic? policlinic { get; set; }
         public int PolicID { get; set; }
 
