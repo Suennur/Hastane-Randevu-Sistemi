@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,87 +9,112 @@ using Hastane.Models;
 
 namespace Hastane.Controllers
 {
-    public class DoctorController : Controller
+    public class PoliclinicController : Controller
     {
-        private readonly HastaneDataContext _context;
+        private readonly HospitalDataContext _context;
 
-        public DoctorController(HastaneDataContext context)
+        public PoliclinicController(HospitalDataContext context)
         {
             _context = context;
         }
 
-        // GET: Doctor
+        // GET: Policlinic
         public async Task<IActionResult> Index()
         {
-              return _context.Doctors != null ? 
-                          View(await _context.Doctors.ToListAsync()) :
-                          Problem("Entity set 'HastaneDataContext.Doctors'  is null.");
+            if (HttpContext.Session.GetString("SessionAdmin") is null)
+            {
+                TempData["error"] = "You are not authorized to access this page.";
+                return RedirectToAction("Login","Admin");
+            }
+
+            return _context.Policlinics != null ? 
+                          View(await _context.Policlinics.ToListAsync()) :
+                          Problem("Entity set 'HospitalDataContext.Policlinics'  is null.");
+            
+            
         }
 
-        // GET: Doctor/Details/5
+        // GET: Policlinic/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Doctors == null)
+            if (HttpContext.Session.GetString("SessionAdmin") is null)
+            {
+                TempData["error"] = "You are not authorized to access this page.";
+                return RedirectToAction("Login", "Admin");
+            }
+
+            if (id == null || _context.Policlinics == null)
             {
                 return NotFound();
             }
 
-            var doctor = await _context.Doctors
-                .FirstOrDefaultAsync(m => m.DoctorId == id);
-            if (doctor == null)
+
+            var policlinic = await _context.Policlinics
+                .FirstOrDefaultAsync(m => m.PolicId == id);
+            if (policlinic == null)
             {
                 return NotFound();
             }
 
-            return View(doctor);
+            return View(policlinic);
         }
 
-        // GET: Doctor/Create
+        // GET: Policlinic/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("SessionAdmin") is null)
+            {
+                TempData["error"] = "You are not authorized to access this page.";
+                return RedirectToAction("Login", "Admin");
+            }
             return View();
         }
 
-        // POST: Doctor/Create
+        // POST: Policlinic/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DoctorId,DoctorFName,DoctorLName,WorkDay,PolicID")] Doctor doctor)
+        public async Task<IActionResult> Create([Bind("PolicId,PolicName")] Policlinic policlinic)
         {
             if (ModelState.IsValid || true)
             {
-                _context.Add(doctor);
+                _context.Add(policlinic);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(doctor);
+            return View(policlinic);
         }
 
-        // GET: Doctor/Edit/5
+        // GET: Policlinic/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Doctors == null)
+            if (HttpContext.Session.GetString("SessionAdmin") is null)
+            {
+                TempData["error"] = "You are not authorized to access this page.";
+                return RedirectToAction("Login", "Admin");
+            }
+            if (id == null || _context.Policlinics == null)
             {
                 return NotFound();
             }
 
-            var doctor = await _context.Doctors.FindAsync(id);
-            if (doctor == null)
+            var policlinic = await _context.Policlinics.FindAsync(id);
+            if (policlinic == null)
             {
                 return NotFound();
             }
-            return View(doctor);
+            return View(policlinic);
         }
 
-        // POST: Doctor/Edit/5
+        // POST: Policlinic/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DoctorId,DoctorFName,DoctorLName,WorkDay,PolicID")] Doctor doctor)
+        public async Task<IActionResult> Edit(int id, [Bind("PolicId,PolicName")] Policlinic policlinic)
         {
-            if (id != doctor.DoctorId)
+            if (id != policlinic.PolicId)
             {
                 return NotFound();
             }
@@ -98,12 +123,12 @@ namespace Hastane.Controllers
             {
                 try
                 {
-                    _context.Update(doctor);
+                    _context.Update(policlinic);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DoctorExists(doctor.DoctorId))
+                    if (!PoliclinicExists(policlinic.PolicId))
                     {
                         return NotFound();
                     }
@@ -114,49 +139,55 @@ namespace Hastane.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(doctor);
+            return View(policlinic);
         }
 
-        // GET: Doctor/Delete/5
+        // GET: Policlinic/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Doctors == null)
+            if (HttpContext.Session.GetString("SessionAdmin") is null)
+            {
+                TempData["error"] = "You are not authorized to access this page.";
+                return RedirectToAction("Login", "Admin");
+            }
+
+            if (id == null || _context.Policlinics == null)
             {
                 return NotFound();
             }
 
-            var doctor = await _context.Doctors
-                .FirstOrDefaultAsync(m => m.DoctorId == id);
-            if (doctor == null)
+            var policlinic = await _context.Policlinics
+                .FirstOrDefaultAsync(m => m.PolicId == id);
+            if (policlinic == null)
             {
                 return NotFound();
             }
 
-            return View(doctor);
+            return View(policlinic);
         }
 
-        // POST: Doctor/Delete/5
+        // POST: Policlinic/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Doctors == null)
+            if (_context.Policlinics == null)
             {
-                return Problem("Entity set 'HasDataContext.Doctors'  is null.");
+                return Problem("Entity set 'HospitalDataContext.Policlinics'  is null.");
             }
-            var doctor = await _context.Doctors.FindAsync(id);
-            if (doctor != null)
+            var policlinic = await _context.Policlinics.FindAsync(id);
+            if (policlinic != null)
             {
-                _context.Doctors.Remove(doctor);
+                _context.Policlinics.Remove(policlinic);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DoctorExists(int id)
+        private bool PoliclinicExists(int id)
         {
-          return (_context.Doctors?.Any(e => e.DoctorId == id)).GetValueOrDefault();
+          return (_context.Policlinics?.Any(e => e.PolicId == id)).GetValueOrDefault();
         }
     }
 }
