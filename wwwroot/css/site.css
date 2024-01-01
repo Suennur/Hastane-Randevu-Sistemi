@@ -1,0 +1,40 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.main-content {
+    background-image: url(/img/home.jpg);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    min-height: 100vh; 
+    margin-top: -56px; 
+    padding-top: 56px; 
+}
+.login {
+    background-image: url(/img/login.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    margin-top: -56px;
+    margin-left:-10vh;
+    margin-right:-10vh;
+    padding-top: 25vh;
+    padding-left: 25vh;
+}
+
