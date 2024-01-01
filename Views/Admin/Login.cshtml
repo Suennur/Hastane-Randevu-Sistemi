@@ -1,41 +1,50 @@
-﻿@model Admin
+@model Admin
 
 @{
-    ViewBag.Title = "Admin Girişi";
+    ViewBag.Title = "Admin Login Page";
 }
+<div class="login">
+    <h2>Admin Login</h2>
 
-
-@if (ViewBag.Status != null)
-{
-
-    if (ViewBag.Status == 0)
+    @if (ViewBag.Status != null)
     {
-        <div class="alert alert-danger"> Hatalı kullanıcı adı veya parola</div>
+
+        if (ViewBag.Status == 0)
+        {
+            <div class="alert alert-danger">Password or Username is wrong.</div>
+        }
+
     }
-
-
-}
-@if (TempData["hata"] is not null)
-{
-    <div class="alert alert-danger">@TempData["hata"]</div>
-}
-<form asp-action="Login" method="post">
-    <div>
-        <label class="form-control" asp-for="AdminName"></label>
-        <input class="form-control" asp-for="AdminName" />
-        <span asp-validation-for="AdminName" class="text-danger"></span>
-    </div>
-    <div>
-        <label class="form-control" asp-for="AdminPassword"></label>
-        <input class="form-control" asp-for="AdminPassword" />
-        <span asp-validation-for="AdminPassword" class="text-danger"></span>
-    </div>
-    <br />
-    <input type="submit" class="btn btn-outline-success" value="Giriş" />
-</form>
-
-@section Scripts{
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    @if (TempData["error"] is not null)
+    {
+        <div class="alert alert-danger">@TempData["error"]</div>
     }
-}
+    <div >
+        <form method="post" asp-action="Login">
+
+            <div>
+                <label class="form-control-plaintext">Username</label>
+                <input asp-for="AdminName" class="form-check-inline" />
+                <span asp-validation-for="AdminName"></span>
+            </div>
+            <div>
+                <label class="form-control-plaintext">Password</label>
+                <input asp-for="AdminPassword" class="form-check-inline" type="password" />
+                <span asp-validation-for="AdminPassword"></span>
+            </div>
+
+            <br />
+
+            <input type="submit" class="btn btn-success" value="Login" />
+            <a asp-controller="Patient" asp-action="Login"><label class="btn btn-outline-success">Patient Login</label></a>
+
+        </form>
+    </div>
+    
+
+    @section Scripts{
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</div>
