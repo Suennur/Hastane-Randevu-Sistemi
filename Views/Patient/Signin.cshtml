@@ -1,33 +1,35 @@
-﻿@model Patient
-
+@model Patient
 @{
-    ViewBag.Title = "Kaydol";
+    ViewBag.Title = "Signin Page";
 }
 
-<form asp-action="Signin" method="post">
+<h2> Signin </h2>
+
+<form method="post" asp-action="Signin">
     <div>
-        <label class="form-control" asp-for="PatientTC"></label>
-        <input class="form-control" asp-for="PatientTC" />
-        <span asp-validation-for="PatientTC" class="text-danger"></span>
+        <label class="form-control-plaintext" asp-for="tc"></label>
+        <input class="form-control" asp-for="tc"/>
+        <span asp-validation-for="tc" class="text-danger"></span>
     </div>
     <div>
-        <label class="form-control" asp-for="PatientFName"></label>
-        <input class="form-control" asp-for="PatientFName" />
-        <span asp-validation-for="PatientFName" class="text-danger"></span>
+        <label class="form-control-plaintext" asp-for="PatientName"></label>
+        <input class="form-control" asp-for="PatientName"  />
+        <span asp-validation-for="PatientName" class="text-danger"></span>
     </div>
     <div>
-        <label class="form-control" asp-for="PatientLName"></label>
-        <input class="form-control" asp-for="PatientLName" />
-        <span asp-validation-for="PatientLName" class="text-danger"></span>
+        <label class="form-control-plaintext" asp-for="PatientSurname"></label>
+        <input class="form-control" asp-for="PatientSurname" />
+        <span asp-validation-for="PatientSurname" class="text-danger"></span>
     </div>
     <div>
-        <label class="form-control" asp-for="PatientPassword"></label>
-        <input class="form-control" asp-for="PatientPassword" />
+        <label class="form-control-plaintext" asp-for="PatientPassword"></label>
+        <input class="form-control" type="password" asp-for="PatientPassword"/>
         <span asp-validation-for="PatientPassword" class="text-danger"></span>
     </div>
     <br />
-    <div><label class="link-info"><a asp-controller="Patient" asp-action="Login">Zaten hesabın var mı? Giriş Yap.</a></label></div>
-    <input type="submit" class="btn btn-outline-success" value="Kaydol" />
+    <input type="submit" class="btn btn-success" value="Signin"/>
+    <a asp-action="Login"><label class="btn btn-outline-success">Login</label></a>
+
 </form>
 
 @section Scripts{
