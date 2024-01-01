@@ -1,28 +1,25 @@
-﻿@model IEnumerable<Has.Models.Doctor>
+@model IEnumerable<Hastane.Models.Doctor>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Doctors";
 }
 
-<h1>Index</h1>
+<h1>Doctors</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"><label class="btn btn-outline-info">Create New</label></a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DoctorFName)
+                @Html.DisplayNameFor(model => model.doctorName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DoctorLName)
+                @Html.DisplayNameFor(model => model.policlinic.PolicName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WorkDay)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PolicID)
+                @Html.DisplayNameFor(model => model.workTime)
             </th>
             <th></th>
         </tr>
@@ -31,21 +28,18 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.DoctorFName)
+                @Html.DisplayFor(modelItem => item.doctorName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DoctorLName)
+                @Html.DisplayFor(modelItem => item.policlinic.PolicName)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.WorkDay)
+                @Html.DisplayFor(modelItem => item.workTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PolicID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DoctorId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DoctorId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DoctorId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.doctorId"><label class="btn btn-outline-info">Edit</label></a> |
+                <a asp-action="Details" asp-route-id="@item.doctorId"><label class="btn btn-outline-secondary">Details</label></a> |
+                <a asp-action="Delete" asp-route-id="@item.doctorId"><label class="btn btn-outline-danger">Delete</label></a>
             </td>
         </tr>
 }
