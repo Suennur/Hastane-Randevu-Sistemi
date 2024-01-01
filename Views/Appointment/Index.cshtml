@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Hastane.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Appointments</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.doctor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.patient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.doctor.workTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.doctor.doctorName)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.patient.PatientName)
+                    @Html.DisplayFor(modelItem => item.patient.PatientSurname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.doctor.workTime)
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AppoId"><label class="btn btn-outline-info">Edit</label></a> |
+                <a asp-action="Details" asp-route-id="@item.AppoId"><label class="btn btn-outline-secondary">Details</label></a> |
+                <a asp-action="Delete" asp-route-id="@item.AppoId"><label class="btn btn-outline-danger">Delete</label></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
