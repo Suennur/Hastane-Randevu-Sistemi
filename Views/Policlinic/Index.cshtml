@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Hastane.Models.Policlinic>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Policlinics</h1>
+
+<p>
+    <a asp-action="Create"><label class="btn btn-outline-info">Create New</label></a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PolicName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PolicName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PolicId"><label class="btn btn-outline-info">Edit</label></a> |
+                <a asp-action="Details" asp-route-id="@item.PolicId"><label class="btn btn-outline-secondary">Details</label></a> |
+                <a asp-action="Delete" asp-route-id="@item.PolicId"><label class="btn btn-outline-danger">Delete</label></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
