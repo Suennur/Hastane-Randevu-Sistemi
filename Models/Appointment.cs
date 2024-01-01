@@ -1,19 +1,21 @@
-﻿namespace Hastane.Models
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Hastane.Models
 {
     public class Appointment
     {
         [Key]
-        public int AppointmentID { get; set; }
-        
-        
-        public DateTime AppointmentTime { get; set; }
-        
-        Doctor Doctor { get; set; }
-        public int DoctorID { get; set; }
-        
-        
-        Patient Patient { get; set; }
-        
-        public int PatientID { get; set;}
+        public int AppoId { get; set; }
+
+        [ForeignKey("Doctor")]
+        public int DoctorId { get; set; }
+        [Display(Name ="Doctor")]
+        public Doctor? doctor { get; set; }
+
+        [ForeignKey("Patient")]
+        public int PatientId { get; set; }
+        [Display(Name ="Patient")]
+        public Patient? patient { get; set; }
     }
 }
