@@ -1,48 +1,42 @@
-﻿@model Has.Models.Doctor
+@model Hastane.Models.Doctor
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Edit Doctor</h1>
 
-<h4>Doctor</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="DoctorId" />
+            <input type="hidden" asp-for="doctorId" />
             <div class="form-group">
-                <label asp-for="DoctorFName" class="control-label"></label>
-                <input asp-for="DoctorFName" class="form-control" />
-                <span asp-validation-for="DoctorFName" class="text-danger"></span>
+                <label asp-for="doctorName" class="control-label"></label>
+                <input asp-for="doctorName" class="form-control" />
+                <span asp-validation-for="doctorName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DoctorLName" class="control-label"></label>
-                <input asp-for="DoctorLName" class="form-control" />
-                <span asp-validation-for="DoctorLName" class="text-danger"></span>
+                <label asp-for="polic" class="control-label"></label>
+                <select asp-for="polic" class="form-control" asp-items="ViewBag.PoliclinicList"></select>
+                <span asp-validation-for="polic" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WorkDay" class="control-label"></label>
-                <input asp-for="WorkDay" class="form-control" />
-                <span asp-validation-for="WorkDay" class="text-danger"></span>
+                <label asp-for="workTime" class="control-label"></label>
+                <input asp-for="workTime" class="form-control" />
+                <span asp-validation-for="workTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PolicID" class="control-label"></label>
-                <input asp-for="PolicID" class="form-control" />
-                <span asp-validation-for="PolicID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+                <br />
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index"><label class="btn btn-outline-secondary">Back to List</label></a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
