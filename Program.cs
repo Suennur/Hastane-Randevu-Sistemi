@@ -1,26 +1,24 @@
 using Microsoft.EntityFrameworkCore;
-using Has.Models;
-
+using Hastane.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
-
-
-var connection = "Server=(localdb)\\mssqllocaldb;Database=xHasData;Trusted_Connection=True;MultipleActiveResultSets=true";
-builder.Services.AddDbContext<HasDataContext>(options => options.UseSqlServer(connection));
-
-
+var connection = "Server=(localdb)\\mssqllocaldb;Database=HospitalDb;Trusted_Connection=True;MultipleActiveResultSets=true";
+builder.Services.AddDbContext<HospitalDataContext>(options => options.UseSqlServer(connection));
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(15); 
+    options.IdleTimeout = TimeSpan.FromMinutes(15);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+
 
 var app = builder.Build();
 
@@ -28,10 +26,7 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
 }
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -40,8 +35,9 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Admin}/{action=Login}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
