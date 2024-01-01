@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,9 +11,9 @@ namespace Hastane.Controllers
 {
     public class PoliclinicController : Controller
     {
-        private readonly HastaneDataContext _context;
+        private readonly HospitalDataContext _context;
 
-        public PoliclinicController(HastaneDataContext context)
+        public PoliclinicController(HospitalDataContext context)
         {
             _context = context;
         }
@@ -21,21 +21,36 @@ namespace Hastane.Controllers
         // GET: Policlinic
         public async Task<IActionResult> Index()
         {
-              return _context.Policlinics != null ? 
+            if (HttpContext.Session.GetString("SessionAdmin") is null)
+            {
+                TempData["error"] = "You are not authorized to access this page.";
+                return RedirectToAction("Login","Admin");
+            }
+
+            return _context.Policlinics != null ? 
                           View(await _context.Policlinics.ToListAsync()) :
-                          Problem("Entity set 'HastaneDataContext.Policlinics'  is null.");
+                          Problem("Entity set 'HospitalDataContext.Policlinics'  is null.");
+            
+            
         }
 
         // GET: Policlinic/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (HttpContext.Session.GetString("SessionAdmin") is null)
+            {
+                TempData["error"] = "You are not authorized to access this page.";
+                return RedirectToAction("Login", "Admin");
+            }
+
             if (id == null || _context.Policlinics == null)
             {
                 return NotFound();
             }
 
+
             var policlinic = await _context.Policlinics
-                .FirstOrDefaultAsync(m => m.PolicID == id);
+                .FirstOrDefaultAsync(m => m.PolicId == id);
             if (policlinic == null)
             {
                 return NotFound();
@@ -47,6 +62,11 @@ namespace Hastane.Controllers
         // GET: Policlinic/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("SessionAdmin") is null)
+            {
+                TempData["error"] = "You are not authorized to access this page.";
+                return RedirectToAction("Login", "Admin");
+            }
             return View();
         }
 
@@ -55,7 +75,7 @@ namespace Hastane.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PolicID,PolicName")] Policlinic policlinic)
+        public async Task<IActionResult> Create([Bind("PolicId,PolicName")] Policlinic policlinic)
         {
             if (ModelState.IsValid || true)
             {
@@ -69,6 +89,11 @@ namespace Hastane.Controllers
         // GET: Policlinic/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (HttpContext.Session.GetString("SessionAdmin") is null)
+            {
+                TempData["error"] = "You are not authorized to access this page.";
+                return RedirectToAction("Login", "Admin");
+            }
             if (id == null || _context.Policlinics == null)
             {
                 return NotFound();
@@ -87,9 +112,9 @@ namespace Hastane.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PolicID,PolicName")] Policlinic policlinic)
+        public async Task<IActionResult> Edit(int id, [Bind("PolicId,PolicName")] Policlinic policlinic)
         {
-            if (id != policlinic.PolicID)
+            if (id != policlinic.PolicId)
             {
                 return NotFound();
             }
@@ -103,7 +128,7 @@ namespace Hastane.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PoliclinicExists(policlinic.PolicID))
+                    if (!PoliclinicExists(policlinic.PolicId))
                     {
                         return NotFound();
                     }
@@ -120,13 +145,19 @@ namespace Hastane.Controllers
         // GET: Policlinic/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (HttpContext.Session.GetString("SessionAdmin") is null)
+            {
+                TempData["error"] = "You are not authorized to access this page.";
+                return RedirectToAction("Login", "Admin");
+            }
+
             if (id == null || _context.Policlinics == null)
             {
                 return NotFound();
             }
 
             var policlinic = await _context.Policlinics
-                .FirstOrDefaultAsync(m => m.PolicID == id);
+                .FirstOrDefaultAsync(m => m.PolicId == id);
             if (policlinic == null)
             {
                 return NotFound();
@@ -142,7 +173,7 @@ namespace Hastane.Controllers
         {
             if (_context.Policlinics == null)
             {
-                return Problem("Entity set 'HasDataContext.Policlinics'  is null.");
+                return Problem("Entity set 'HospitalDataContext.Policlinics'  is null.");
             }
             var policlinic = await _context.Policlinics.FindAsync(id);
             if (policlinic != null)
@@ -156,7 +187,7 @@ namespace Hastane.Controllers
 
         private bool PoliclinicExists(int id)
         {
-          return (_context.Policlinics?.Any(e => e.PolicID == id)).GetValueOrDefault();
+          return (_context.Policlinics?.Any(e => e.PolicId == id)).GetValueOrDefault();
         }
     }
 }
