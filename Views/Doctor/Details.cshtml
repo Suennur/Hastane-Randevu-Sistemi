@@ -1,42 +1,36 @@
-﻿@model Has.Models.Doctor
+@model Hastane.Models.Doctor
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Doctor Details</h1>
 
 <div>
-    <h4>Doctor</h4>
+    
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DoctorFName)
+            @Html.DisplayNameFor(model => model.doctorName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DoctorFName)
+            @Html.DisplayFor(model => model.doctorName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DoctorLName)
+            @Html.DisplayNameFor(model => model.polic)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DoctorLName)
+            @Html.DisplayFor(model => model.policlinic.PolicName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.WorkDay)
+            @Html.DisplayNameFor(model => model.workTime)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.WorkDay)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PolicID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PolicID)
+            @Html.DisplayFor(model => model.workTime)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.DoctorId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.doctorId"><label class="btn btn-outline-info">Edit</label></a> 
+    <a asp-action="Index"><label class="btn btn-outline-secondary">Back to List</label></a>
 </div>
