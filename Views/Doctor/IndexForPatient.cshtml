@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Hastane.Models.Doctor>
+
+@{
+    ViewData["Title"] = "Doctors";
+}
+
+<h1>Doctors</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.doctorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.policlinic.PolicName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.workTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.doctorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.policlinic.PolicName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.workTime)
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
